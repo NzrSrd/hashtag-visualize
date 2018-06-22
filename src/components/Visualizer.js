@@ -1,66 +1,24 @@
-import React, { Component } from "react"
-import Konva from "konva"
-import { Stage, Layer, Text } from 'react-konva'
-
-
-class LayerBackground extends React.component {
-  componentDidMount() {
-    console.log('rendered the visualizer background');
-  },
-  render () {
-    return (
-      <Rect
-        color='black',
-        fillRadialGradientStartPoint={0},
-        fillRadialGradientStartRadius={0},
-        fillRadialGradientEndPoint={0},
-        fillRadialGradientEndRadius={70},
-        fillRadialGradientColorStops={[0, 'red', 0.5, 'yellow', 1, 'blue']},
-      };
-    ></Rect>
-    )
-  }
-}
-
-class TweetContent extends React.component {
-  componentDidMount() {
-    console.log('rendered the tweet content')
-  },
-  componentDidUpdate() {
-    console.log('updated the tweet content')
-  },
-  render() {
-    return (
-      {/* TODO: add ${tweet} */}
-      <P>Here comes the text from the tweet</P>
-    )
-  }
-}
-
-class LayerTweetShape extends React.component {
-  componentDidMount() {
-    console.log('rendered the tweet shape')
-  },
-  render() {
-    return (
-      {/* TODO: add animation*/}
-      <Circle>
-
-      </Circle>
-
-    )
-  }
-}
+import React, { Component } from "react";
+import Konva from "konva";
+import { Stage } from "react-konva";
+import BackgroundLayer from "./BackgroundLayer";
+import VisualLayer from "./VisualLayer";
 
 class Visualizer extends Component {
   render() {
+    const { visualizerSize, hashtagsSize } = this.props;
+    const { width, height } = visualizerSize;
+    // console.log(visualizerSize);
     return (
-      <Stage width={window.innerWidth} height={window.innerHeight} >
-
+      <Stage width={width} height={height}>
+        {/* <BackgroundLayer visualizerSize={visualizerSize} /> */}
+        <VisualLayer
+          hashtagsSize={hashtagsSize}
+          visualizerSize={visualizerSize}
+        />
       </Stage>
-      <TweetContent></TweetContent>
-    )
+    );
   }
 }
 
-export default Visualizer
+export default Visualizer;

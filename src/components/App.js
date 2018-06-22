@@ -20,10 +20,16 @@ class App extends Component {
     super();
     this.socket = io.connect("http://afuh.xyz/");
   }
-  state = { hashtags: [], tweet: {} };
+  state = { hashtags: [], tweet: {}, visualizerSize: {} };
 
   componentDidMount() {
     this.subscripeToTweets();
+    const visualizerElement = document.getElementById("visualizer");
+    console.log(visualizerElement);
+    const { clientHeight, clientWidth } = visualizerElement;
+    this.setState({
+      visualizerSize: { height: clientHeight, width: clientWidth }
+    });
   }
 
   subscripeToTweets = () => {
@@ -37,12 +43,13 @@ class App extends Component {
         }))
       );
 
-      console.log(hashtags);
+      // console.log(hashtags);
       this.setState({ hashtags, tweet: data.id_str });
     });
   };
   render() {
-    const { tweet } = this.state;
+    const { hashtags, tweet, visualizerSize } = this.state;
+    const hashtagsSize = hashtags.length;
     return (
       <Container fluid style={{ minHeight: "100vh" }}>
         <Row>
@@ -50,13 +57,18 @@ class App extends Component {
             <LeftSideBar />
           </Col>
           <Col
+            id="visualizer"
             style={{
+              padding: "0px",
               border: "1px solid red",
               maxHeight: "95vh",
               height: "95vh"
             }}
             md={10}>
-            <Visualizer />
+            <Visualizer
+              hashtagsSize={hashtagsSize}
+              visualizerSize={visualizerSize}
+            />
           </Col>
         </Row>
         <Row>
