@@ -10,6 +10,7 @@ import Visualizer from "./Visualizer";
 import MusicThing from "./MusicThing";
 import LeftSideBar from "./LeftSideBar";
 import Controls from "./Controls";
+import TweetTextBar from "./TweetTextBar";
 
 const rcOptions = {
   luminosity: "light"
@@ -26,7 +27,7 @@ class App extends Component {
   componentDidMount() {
     this.subscripeToTweets();
     const visualizerElement = document.getElementById("visualizer");
-    console.log(visualizerElement);
+    // console.log(visualizerElement);
     const { clientHeight, clientWidth } = visualizerElement;
     this.setState({
       visualizerSize: { height: clientHeight, width: clientWidth }
@@ -45,27 +46,37 @@ class App extends Component {
       );
 
       // console.log(hashtags);
-      this.setState({ hashtags, tweet: data.id_str });
+      this.setState({ hashtags, tweet: { id: data.id_stri, text: data.text } });
     });
   };
   render() {
+    const color = rc(rcOptions);
+    const color2 = rc(rcOptions);
     const { hashtags, tweet, visualizerSize } = this.state;
     const hashtagsSize = hashtags.length;
     return (
       <Container fluid style={{ minHeight: "100vh" }}>
         <Row>
-          <Col style={{ border: "1px solid red", maxHeight: "100vh" }} md={2}>
-            <LeftSideBar />
+          <Col
+            style={{
+              border: `1px solid ${color}`,
+              maxHeight: "90vh",
+              overflowY: "auto",
+              padding: 10
+            }}
+            md={2}>
+            <LeftSideBar color={color2} hashtags={hashtags} />
           </Col>
           <Col
             id="visualizer"
             style={{
               padding: "0px",
-              border: "1px solid red",
-              maxHeight: "95vh",
-              height: "95vh"
+              border: `1px solid ${color2}`,
+              maxHeight: "90vh",
+              height: "90vh"
             }}
             md={10}>
+            <TweetTextBar tweet={tweet} />
             <Visualizer
               frequencies={this.frequencies}
               hashtagsSize={hashtagsSize}
@@ -74,8 +85,8 @@ class App extends Component {
           </Col>
         </Row>
         <Row>
-          <Col style={{ border: "1px solid red", height: "5vh" }} md={12}>
-            <Controls />
+          <Col style={{ border: `1px solid ${color}`, height: "10vh" }} md={12}>
+            <Controls color={color} />
           </Col>
         </Row>
 

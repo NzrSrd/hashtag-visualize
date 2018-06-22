@@ -1,57 +1,52 @@
-html, body {
- margin: 0;
- background-color: #111111;
- padding: 0;
- font-family: 'Fira Sans', sans-serif;
- font-size: 20px;
+html,
+body {
+  margin: 0;
+  background-color: #111111;
+  padding: 0;
+  font-family: "Fira Sans", sans-serif;
+  font-size: 20px;
+  color: #fff;
 }
-
+h1,
+h2,
+h3,
+h4 {
+  color: #fff;
+}
 * {
- box-sizing: border-box;
+  box-sizing: border-box;
 }
-
-div.aside {
- border-right: 2px solid #ff00c2;
- position: fixed;
- left: 0;
- bottom: 0;
- top: 0;
- height: 100%;
- width: 20%;
-}
-
 footer {
- border-top: 2px solid #ff00c2;
- width: 80%;
- height: 100px;
- position: fixed;
- right: 0;
- bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 div.buttons {
- height: 100%;
- margin: auto;
- display: flex;
- justify-content: center;
- flex-wrap: wrap;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 button {
- margin: 20px 10px;
- padding: 15px 100px;
- border: 2px solid #ff00c2;
- border-radius: 4px;
- background-color: #1a1a1a;
- font-family: 'Fjalla One', sans-serif;
- color: #ff00c2;
- font-size: 26px;
+  margin: 20px 10px;
+  padding: 15px 100px;
+  border: 2px solid #ff00c2;
+  border-radius: 4px;
+  background-color: #1a1a1a;
+  font-family: "Fjalla One", sans-serif;
+  color: #ff00c2;
+  font-size: 26px;
+  transition: 1s;
 }
 
 div.slide-bar {
- border: 2px solid #ff00c2;
- border-radius: 4px;
- margin: 20px 10px;
- padding: 20px 100px;
- background-color: #1a1a1a;
+  border: 2px solid #ff00c2;
+  border-radius: 4px;
+  margin: 20px 10px;
+  padding: 20px 100px;
+  background-color: #1a1a1a;
+  transition: 1s;
 }
