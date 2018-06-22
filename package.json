@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "randomcolor": "^0.5.3",
+    "konva": "^2.1.6",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-konva": "^1.7.7",
+    "randomcolor": "^0.5.3",
     "react-grid-system": "^4.1.2",
     "react-scripts": "1.1.4",
     "socket.io-client": "^2.1.1",
