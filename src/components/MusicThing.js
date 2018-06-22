@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Tone from 'tone';
 import io from 'socket.io-client';
 
+import freq from '../notes';
+
 const n = ['A', 'C', 'D', 'E', 'F', 'G'];
 const octave = ['4', '5'];
 const osc = ['triangle', 'sine', 'sawtooth'];
@@ -171,14 +173,16 @@ Tone.Transport.start();
 
 class MusicMelody extends Component {
   static getDerivedStateFromProps(){
-    makeSound();
-    return null;
+    const note = rArr(n) + rArr(octave);
+    melo.triggerAttackRelease(note, "16n");
+    return { freq: freq[note] };
   }
   state = {
-    note: null
+    freq: null
   }
   render() {
-    return <div>MusicShit</div>;
+    this.props.handleFreq(this.state.freq);
+    return <div/>;
   }
 }
 
