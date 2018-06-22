@@ -20,7 +20,8 @@ class App extends Component {
     super();
     this.socket = io.connect("http://afuh.xyz/");
   }
-  state = { hashtags: [], tweet: {}, visualizerSize: {} };
+  frequencies = [];
+  state = { hashtags: [], tweet: {}, freq: [], visualizerSize: {} };
 
   componentDidMount() {
     this.subscripeToTweets();
@@ -66,6 +67,7 @@ class App extends Component {
             }}
             md={10}>
             <Visualizer
+              frequencies={this.frequencies}
               hashtagsSize={hashtagsSize}
               visualizerSize={visualizerSize}
             />
@@ -77,7 +79,10 @@ class App extends Component {
           </Col>
         </Row>
 
-        {/* <MusicThing tweet={tweet} /> */}
+        <MusicThing
+          tweet={tweet}
+          handleFreq={freq => this.frequencies.push(freq)}
+        />
       </Container>
     );
   }

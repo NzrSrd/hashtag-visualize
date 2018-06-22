@@ -9,12 +9,21 @@ const rcOptions = {
 
 class VisualLayer extends React.Component {
   componentDidUpdate() {
-    const { visualizerSize, hashtagsSize } = this.props;
-    this.circle.to({
-      scaleX: hashtagsSize == 0 ? 1.1 : 1 + hashtagsSize * 0.1,
-      scaleY: hashtagsSize == 0 ? 1.1 : 1 + hashtagsSize * 0.1,
-      druation: 0.5
-    });
+    const { frequencies } = this.props;
+    // console.log(frequencies[0] / 10);
+    let freq = 1;
+    if (frequencies.length > 0) {
+      freq = frequencies.pop();
+      console.log(freq);
+      this.circle.to({
+        scaleX: freq / 100,
+        scaleY: freq / 100,
+        druation: 0.1
+      });
+    }
+
+    // console.log(freq);
+
     // this.circle.to({
     //   scaleX: 1,
     //   scaleY: 1,
@@ -23,16 +32,16 @@ class VisualLayer extends React.Component {
   }
   render() {
     const color = rc(rcOptions);
-    const { visualizerSize, hashtagsSize } = this.props;
+    const { visualizerSize } = this.props;
     const { width, height } = visualizerSize;
-    console.log(hashtagsSize);
+    // console.log(hashtagsSize);
     return (
       <Layer>
         <Circle
           ref={elem => {
             this.circle = elem;
           }}
-          strokeWidth={2}
+          strokeWidth={1}
           height={50}
           width={50}
           tension={2}
