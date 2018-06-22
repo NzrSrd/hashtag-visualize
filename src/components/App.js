@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import io from "socket.io-client";
 import uuid4 from "uuid/v4";
 import { Container, Row, Col } from "react-grid-system";
-// import Tone from "tone";
 import rc from "randomcolor";
 
 import Visualizer from "./Visualizer";
@@ -19,7 +18,13 @@ const rcOptions = {
 class App extends Component {
   socket = io.connect("http://afuh.xyz/");
   frequencies = [];
-  state = { hashtags: [], tweet: {}, freq: [], visualizerSize: {}, playing: true };
+  state = {
+    hashtags: [],
+    tweet: {},
+    freq: [],
+    visualizerSize: {},
+    playing: true
+  };
 
   componentDidMount() {
     this.subscripeToTweets();
@@ -29,7 +34,7 @@ class App extends Component {
       visualizerSize: { height: clientHeight, width: clientWidth }
     });
   }
-  handleReporduction(playing){
+  handleReporduction(playing) {
     this.setState({ playing });
   }
   subscripeToTweets = () => {
@@ -42,9 +47,11 @@ class App extends Component {
             id: h.text.concat(data.id_str.concat(uuid4())),
             color: rc(rcOptions)
           }))
-
         );
-        this.setState({ hashtags, tweet: { id: data.id_stri, text: data.text } });
+        this.setState({
+          hashtags: hashtags.reverse(),
+          tweet: { id: data.id_stri, text: data.text }
+        });
       }
     });
   };
@@ -52,7 +59,6 @@ class App extends Component {
     const color = rc(rcOptions);
     const color2 = rc(rcOptions);
     const { hashtags, tweet, visualizerSize } = this.state;
-    const hashtagsSize = hashtags.length;
     return (
       <Container fluid style={{ minHeight: "100vh" }}>
         <Row>
@@ -75,19 +81,25 @@ class App extends Component {
               height: "90vh"
             }}
             md={10}>
-            <TweetTextBar tweet={tweet} />
-            <Visualizer
-              frequencies={this.frequencies}
-              hashtagsSize={hashtagsSize}
-              visualizerSize={visualizerSize}
-            />
+            <Row>
+              <TweetTextBar tweet={tweet} color={color} />
+            </Row>
+
+            <Row>
+              <Visualizer
+                color={color}
+                frequencies={this.frequencies}
+                visualizerSize={visualizerSize}
+              />
+            </Row>
           </Col>
         </Row>
         <Row>
           <Col style={{ border: `1px solid ${color}`, height: "10vh" }} md={12}>
             <Controls
               handleReporduction={socket => this.handleReporduction(socket)}
-              color={color} />
+              color={color}
+            />
           </Col>
         </Row>
 

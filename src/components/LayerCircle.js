@@ -1,6 +1,5 @@
 import React from "react";
-import Konva from "konva";
-import { Layer, Circle } from "react-konva";
+import { Circle } from "react-konva";
 import rc from "randomcolor";
 
 const rcOptions = {
@@ -13,22 +12,22 @@ class LayerCircle extends React.Component {
     let freq = 1;
     if (frequencies.length > 0) {
       freq = frequencies.pop();
-      // console.log(freq);
       this.circle.to({
-        scaleX: freq / 80,
-        scaleY: freq / 80,
+        scaleX: freq / 90,
+        scaleY: freq / 90,
         druation: 0.1
       });
     }
   }
   render() {
     const color = rc(rcOptions);
-    const { width, height, size } = this.props;
+    const { width, height, size, color: ShadowColor } = this.props;
     return (
       <Circle
         ref={elem => {
           this.circle = elem;
         }}
+        shadowColor={color}
         strokeWidth={1}
         height={size}
         width={size}
