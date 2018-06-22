@@ -42,7 +42,7 @@ class App extends Component {
     tweet: {},
     freq: [],
     visualizerSize: {},
-    playing: true
+    playing: false
   };
 
   componentDidMount() {
@@ -79,7 +79,7 @@ class App extends Component {
   render() {
     const color = rc(rcOptions);
     const color2 = rc(rcOptions);
-    const { hashtags, tweet, visualizerSize } = this.state;
+    const { hashtags, tweet, visualizerSize, playing } = this.state;
     return (
       <Container fluid style={{ minHeight: "100vh" }}>
         <Row>
@@ -103,7 +103,9 @@ class App extends Component {
             }}
             md={10}>
             <Row>
-              <TweetTextBar tweet={tweet} color2={color2} color={color} />
+              {playing && (
+                <TweetTextBar tweet={tweet} color2={color2} color={color} />
+              )}
             </Row>
 
             <Row>
