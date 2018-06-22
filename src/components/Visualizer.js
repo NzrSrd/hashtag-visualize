@@ -42,22 +42,22 @@ class Visualizer extends Component {
             width={width}
             height={height}
           />
-          <LayerRect
+          {/* <LayerRect
             color={color}
             key="fiths"
             size={700}
             frequencies={frequencies}
             width={width}
             height={height}
-          />
-          <LayerRect
+          /> */}
+          {/* <LayerRect
             color={color}
             key="fiths"
             size={800}
             frequencies={frequencies}
             width={width}
             height={height}
-          />
+          /> */}
         </Layer>
       </Stage>
     );

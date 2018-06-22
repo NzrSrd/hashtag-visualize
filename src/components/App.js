@@ -14,9 +14,28 @@ import TweetTextBar from "./TweetTextBar";
 const rcOptions = {
   luminosity: "light"
 };
+const HASHTAGS = [
+  "refugees",
+  "refugee",
+  "refugeeweek2018",
+  "refugeeweek",
+  "refugeeday",
+  "flüchtlinge",
+  "migrants",
+  "fuckafd",
+  "noafd",
+  "equality",
+  "asylumSeekers",
+  "refugiado",
+  "rèfugiés",
+  "peace",
+  "paz",
+  "spreadLov",
+  "stophate"
+];
 
 class App extends Component {
-  socket = io.connect("http://afuh.xyz/");
+  socket = io.connect("http://beathoven.axelfuhrmann.com/");
   frequencies = [];
   state = {
     hashtags: [],
@@ -42,11 +61,13 @@ class App extends Component {
       const { hashtags } = this.state;
       if (this.state.playing) {
         hashtags.push(
-          ...data.entities.hashtags.map(h => ({
-            text: h.text,
-            id: h.text.concat(data.id_str.concat(uuid4())),
-            color: rc(rcOptions)
-          }))
+          ...data.entities.hashtags
+            .filter(h => HASHTAGS.includes(h.text.toLowerCase()))
+            .map(h => ({
+              text: h.text,
+              id: h.text.concat(data.id_str.concat(uuid4())),
+              color: rc(rcOptions)
+            }))
         );
         this.setState({
           hashtags: hashtags.reverse(),
@@ -82,7 +103,7 @@ class App extends Component {
             }}
             md={10}>
             <Row>
-              <TweetTextBar tweet={tweet} color={color} />
+              <TweetTextBar tweet={tweet} color2={color2} color={color} />
             </Row>
 
             <Row>
