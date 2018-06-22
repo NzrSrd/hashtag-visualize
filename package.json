@@ -13,8 +13,14 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-grid-system": "^4.1.2",
+<<<<<<< HEAD
 >>>>>>> 3e06d664cb2600e8ca5b5945cf5e2cf1b1f9e6ce
     "react-scripts": "1.1.4"
+=======
+    "react-scripts": "1.1.4",
+    "socket.io-client": "^2.1.1",
+    "uuid": "^3.2.1"
+>>>>>>> 99dac6a31530dabea88b48a9d2509ca05992bf2c
   },
   "scripts": {
     "start": "react-scripts start",
