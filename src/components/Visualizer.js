@@ -2,27 +2,41 @@ import React, { Component } from "react";
 import Konva from "konva";
 import { Stage, Layer, Text } from 'react-konva';
 
-class Visualizer extends Component {
+class LayerBackground extends React.component {
+  state = {
+  },
+  render () {
+    return (
+      <Layer>
+        {/* this is the background based on the melody */}
+      </Layer>
+    )
+  }
+}
 
+class LayerTweetText extends React.component {
+  state = {
+    text: tweet 
+  },
+  render() {
+    <Text>${tweet}</Text>
+  }
+}
+
+class LayerTweetShape extends React.component {
+  state = {
+
+  },
+  render() {
+
+  }
+}
+
+class Visualizer extends Component {
   render() {
     return (
-      <Stage>
-        <Layer width={window.innerWidth} height={window.innerHeight}>
-          {/*
-            Background layer -> changes gradient colors based on the melody
-            Width and Height -> size of window.innnerWidth and window.innerHeight 
-          */}
-        </Layer>
-        <Layer> 
-          {/* 
-            Text layer -> renders content of the tweets
-          */}
-        </Layer>
-        <Layer>
-          {/* 
-            Shapes -> renders the shapes of the tweets 
-          */}
-        </Layer>
+      <Stage width={window.innerWidth} height={window.innerHeight} >
+        <Layer></Layer>
       </Stage>
     )
   }
