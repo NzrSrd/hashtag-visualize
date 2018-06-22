@@ -17,36 +17,35 @@ const rcOptions = {
 };
 
 class App extends Component {
-  constructor() {
-    super();
-    this.socket = io.connect("http://afuh.xyz/");
-  }
+  socket = io.connect("http://afuh.xyz/");
   frequencies = [];
-  state = { hashtags: [], tweet: {}, freq: [], visualizerSize: {} };
+  state = { hashtags: [], tweet: {}, freq: [], visualizerSize: {}, playing: true };
 
   componentDidMount() {
     this.subscripeToTweets();
     const visualizerElement = document.getElementById("visualizer");
-    // console.log(visualizerElement);
     const { clientHeight, clientWidth } = visualizerElement;
     this.setState({
       visualizerSize: { height: clientHeight, width: clientWidth }
     });
   }
-
+  handleReporduction(playing){
+    this.setState({ playing });
+  }
   subscripeToTweets = () => {
     this.socket.on("tweet", data => {
       const { hashtags } = this.state;
-      hashtags.push(
-        ...data.entities.hashtags.map(h => ({
-          text: h.text,
-          id: h.text.concat(data.id_str.concat(uuid4())),
-          color: rc(rcOptions)
-        }))
-      );
+      if (this.state.playing) {
+        hashtags.push(
+          ...data.entities.hashtags.map(h => ({
+            text: h.text,
+            id: h.text.concat(data.id_str.concat(uuid4())),
+            color: rc(rcOptions)
+          }))
 
-      // console.log(hashtags);
-      this.setState({ hashtags, tweet: { id: data.id_stri, text: data.text } });
+        );
+        this.setState({ hashtags, tweet: { id: data.id_stri, text: data.text } });
+      }
     });
   };
   render() {
@@ -86,7 +85,9 @@ class App extends Component {
         </Row>
         <Row>
           <Col style={{ border: `1px solid ${color}`, height: "10vh" }} md={12}>
-            <Controls color={color} />
+            <Controls
+              handleReporduction={socket => this.handleReporduction(socket)}
+              color={color} />
           </Col>
         </Row>
 

@@ -9,16 +9,18 @@ class Controls extends Component {
       <footer>
         <div className="buttons">
           <button
-            style={{ border: `1px solid ${color}`, color: color }}
+            onClick={() => this.props.handleReporduction(true)}
+            style={{ border: `1px solid ${color}`, color }}
             type="button"
             name="button">
-            <i style={{ color: color }} className="fas fa-play-circle" /> PLAY
+            <i style={{ color }} className="fas fa-play-circle" /> PLAY
           </button>
           <button
-            style={{ border: `1px solid ${color}`, color: color }}
+            onClick={() => this.props.handleReporduction(false)}
+            style={{ border: `1px solid ${color}`, color }}
             type="button"
             name="button">
-            <i style={{ color: color }} className="fas fa-stop-circle" /> STOP
+            <i style={{ color }} className="fas fa-stop-circle" /> STOP
           </button>
           {/* <div className="slide-bar">
             <i className="fas fa-volume-down" style={{ color: "#ff00c2" }} />
