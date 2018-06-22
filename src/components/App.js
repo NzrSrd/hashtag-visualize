@@ -65,7 +65,7 @@ class App extends Component {
           </Col>
         </Row>
 
-        {/* <MusicThing tweet={tweet} /> */}
+        <MusicThing tweet={tweet} />
       </Container>
     );
   }
