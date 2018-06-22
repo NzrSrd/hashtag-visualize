@@ -3,10 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
     "konva": "^2.1.6",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-konva": "^1.7.7",
+=======
+    "randomcolor": "^0.5.3",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-grid-system": "^4.1.2",
+>>>>>>> 3e06d664cb2600e8ca5b5945cf5e2cf1b1f9e6ce
     "react-scripts": "1.1.4"
   },
   "scripts": {
