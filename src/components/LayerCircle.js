@@ -10,14 +10,13 @@ const rcOptions = {
 class LayerCircle extends React.Component {
   componentDidUpdate() {
     const { frequencies } = this.props;
-    // console.log(frequencies[0] / 10);
     let freq = 1;
     if (frequencies.length > 0) {
       freq = frequencies.pop();
       // console.log(freq);
       this.circle.to({
-        scaleX: freq / 100,
-        scaleY: freq / 100,
+        scaleX: freq / 80,
+        scaleY: freq / 80,
         druation: 0.1
       });
     }
@@ -25,8 +24,6 @@ class LayerCircle extends React.Component {
   render() {
     const color = rc(rcOptions);
     const { width, height, size } = this.props;
-    // const { width, height } = visualizerSize;
-    // console.log(hashtagsSize);
     return (
       <Circle
         ref={elem => {

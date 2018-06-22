@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Konva from "konva";
 import { Stage, Layer } from "react-konva";
-import BackgroundLayer from "./BackgroundLayer";
+// import BackgroundLayer from "./BackgroundLayer";
 import VisualLayer from "./VisualLayer";
 import LayerCircle from "./LayerCircle";
 

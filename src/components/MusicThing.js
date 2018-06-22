@@ -1,27 +1,9 @@
 import React, { Component } from "react";
 import Tone from "tone";
-import io from "socket.io-client";
 
 import freq from "../notes";
 
-const n = ["A", "C", "D", "E", "F", "G"];
-const octave = ["4", "5"];
-const osc = ["triangle", "sine", "sawtooth"];
-const rArr = arr => arr[Math.floor(Math.random() * arr.length)];
-const rNum = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
-
-let note;
-
-const makeSound = () => {
-  note = rArr(n) + rArr(octave);
-  melo.triggerAttackRelease(note, "16n");
-};
-
-window.addEventListener("keydown", e => {
-  if (e.keyCode === 32) makeSound(melo);
-});
-
-// Synth
+// Melody
 const melo = new Tone.Synth({
   oscillator: { type: "sine" }
 });
@@ -33,10 +15,10 @@ const rev = new Tone.Freeverb({
 });
 
 const revPha = new Tone.Phaser({
-  frequency: 0.5,
-  octaves: 1
+  frequency: 1,
+  octaves: 2
 });
-const revVol = new Tone.Volume(-40);
+const revVol = new Tone.Volume(-20);
 
 melo.connect(rev);
 rev.connect(revPha);
@@ -48,9 +30,9 @@ const limit = new Tone.Limiter(-6);
 const master = new Tone.Volume(-10);
 
 const del = new Tone.PingPongDelay({
-  delayTime: "2n",
+  delayTime: "4n",
   maxDelayTime: 2,
-  wet: 0.5
+  wet: 0.3
 });
 
 melo.connect(cho2);
@@ -60,6 +42,7 @@ master.connect(limit);
 
 limit.toMaster();
 
+// Background
 const envelope = {
   attack: 1,
   decay: 0,
@@ -160,6 +143,7 @@ const compre = new Tone.Compressor({
   threshold: -4
 });
 
+// Kick
 const kick = new Tone.MembraneSynth();
 
 new Tone.Sequence(
@@ -169,7 +153,8 @@ new Tone.Sequence(
   ["A0", ["A0", ["A0", "A0"]], "A0", "A0"]
 ).start(0);
 
-const kickGain = new Tone.Volume(-14);
+const kickGain = new Tone.Volume(-10);
+
 kick.connect(kickGain);
 kickGain.toMaster();
 
@@ -196,14 +181,27 @@ Tone.Transport.bpm.value = 50;
 Tone.Transport.start();
 
 class MusicMelody extends Component {
-  static getDerivedStateFromProps() {
+  static makeSound = () => {
+    const n = ["A", "C", "D", "E", "F", "G"];
+    const octave = ["4", "5"];
+    const rArr = arr => arr[Math.floor(Math.random() * arr.length)];
     const note = rArr(n) + rArr(octave);
+
     melo.triggerAttackRelease(note, "16n");
-    return { freq: freq[note] };
+    return freq[note];
+  };
+  static getDerivedStateFromProps() {
+    const freq = MusicMelody.makeSound();
+    return { freq };
   }
   state = {
     freq: null
   };
+  componentDidMount(){
+    window.addEventListener("keydown", e => {
+      if (e.keyCode === 32) MusicMelody.makeSound(melo);
+    });
+  }
   render() {
     this.props.handleFreq(this.state.freq);
     return <div />;
