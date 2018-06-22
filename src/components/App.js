@@ -49,13 +49,9 @@ class App extends Component {
     });
   };
   render() {
-<<<<<<< HEAD
-    const { kick, hashtags, tweet, visualizerSize } = this.state;
-=======
     const color = rc(rcOptions);
     const color2 = rc(rcOptions);
     const { hashtags, tweet, visualizerSize } = this.state;
->>>>>>> 4aceefd098f0f3d0639558069f11677a7ec8ef47
     const hashtagsSize = hashtags.length;
     return (
       <Container fluid style={{ minHeight: "100vh" }}>
