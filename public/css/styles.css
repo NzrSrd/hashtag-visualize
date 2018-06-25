@@ -68,6 +68,7 @@ div.tweet-text-bar {
   z-index: 100;
   background: rgba(38, 38, 38, 0.5);
   border-radius: 15px;
+  transition: 0.5s
 }
 
 div.tweet-text-bar h4 {
