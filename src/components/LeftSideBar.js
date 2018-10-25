@@ -1,19 +1,29 @@
-import React, { Component } from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class LeftSideBar extends Component {
-  render() {
-    const { hashtags, color } = this.props;
-    return (
-      <div className="aside">
-        <h1 style={{ borderBottom: `1px solid ${color}` }}>HASHTAGS:</h1>
-        {hashtags.map(h => (
-          <h3 key={h.id} style={{ color: h.color }}>
-            #{h.text}
-          </h3>
-        ))}
-      </div>
-    );
-  }
-}
+import rc from 'randomcolor';
+
+const LeftSideBar = ({ hashtags }) => {
+  const color = rc();
+  return (
+    <div>
+      <h1 style={{ borderBottom: `1px solid ${color}` }}>HASHTAGS:</h1>
+      {hashtags.map(h => (
+        <h3 key={h.id}>
+          #
+          {h.text}
+        </h3>
+      ))}
+    </div>
+  );
+};
+
+LeftSideBar.propTypes = {
+  hashtags: PropTypes.array,
+};
+
+LeftSideBar.defaultProps = {
+  hashtags: [],
+};
 
 export default LeftSideBar;

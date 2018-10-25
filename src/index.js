@@ -1,8 +1,21 @@
-import React from "react";
-import "./index.css";
-import ReactDOM from "react-dom";
-import App from "./components/App";
-import registerServiceWorker from "./registerServiceWorker";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'mobx-react';
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import App from './components/App';
+import Store from './Store/Store';
+
+import registerServiceWorker from './registerServiceWorker';
+
+import './index.css';
+
+const store = new Store();
+window.store = store;
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
 registerServiceWorker();
