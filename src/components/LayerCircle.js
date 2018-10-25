@@ -21,7 +21,7 @@ class LayerCircle extends React.Component {
   }
   render() {
     const color = rc(rcOptions);
-    const { width, height, size, color: ShadowColor } = this.props;
+    const { width, height, size } = this.props;
     return (
       <Circle
         ref={elem => {

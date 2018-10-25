@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Stage, Layer } from "react-konva";
 import LayerCircle from "./LayerCircle";
-import LayerRect from "./LayerRect";
 
 class Visualizer extends Component {
   render() {

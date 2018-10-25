@@ -21,7 +21,7 @@ class LayerRect extends React.Component {
   }
   render() {
     const color = rc(rcOptions);
-    const { width, height, size } = this.props;
+    const { width, height } = this.props;
     return (
       <Rect
         ref={elem => {
