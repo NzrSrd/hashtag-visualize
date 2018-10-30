@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader';
+
 import { inject, observer, PropTypes as MobxPropTypes } from 'mobx-react';
 
 import { Container, Row, Col } from 'react-grid-system';
@@ -26,4 +28,4 @@ class App extends Component {
 App.wrappedComponent.propTypes = {
   store: MobxPropTypes.observableObject.isRequired,
 };
-export default App;
+export default hot(module)(App);

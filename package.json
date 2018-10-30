@@ -47,6 +47,7 @@
     "resolve": "1.6.0",
     "socket.io-client": "^2.1.1",
     "style-loader": "0.19.0",
+    "styled-components": "^4.0.2",
     "sw-precache-webpack-plugin": "0.11.4",
     "tone": "^0.12.80",
     "url-loader": "0.6.2",
@@ -104,14 +105,17 @@
     "plugins": [
       "transform-decorators-legacy",
       "transform-class-properties",
-      "add-module-exports"
+      "add-module-exports",
+      "babel-plugin-styled-components"
     ]
   },
   "devDependencies": {
     "@babel/preset-env": "^7.1.0",
     "babel-plugin-add-module-exports": "^1.0.0",
+    "babel-plugin-styled-components": "^1.8.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-promise": "^4.0.1"
+    "eslint-plugin-promise": "^4.0.1",
+    "react-hot-loader": "^4.3.11"
   }
 }

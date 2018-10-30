@@ -1,22 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import rc from 'randomcolor';
+const SideCol = styled.div`
+  width: 100%;
+  border: 1px solid white;
+  height: 100vh;
+  overflow-y: auto;
+  max-height: 100vh;
+`;
 
-const LeftSideBar = ({ hashtags }) => {
-  const color = rc();
-  return (
-    <div>
-      <h1 style={{ borderBottom: `1px solid ${color}` }}>HASHTAGS:</h1>
+const HashtagsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-top: 1px solid white;
+`;
+
+const LeftSideBar = ({ hashtags }) => (
+  <SideCol>
+    <h1>
+      HASHTAGS:
+      {hashtags.length}
+    </h1>
+    <HashtagsWrapper>
       {hashtags.map(h => (
         <h3 key={h.id}>
           #
           {h.text}
         </h3>
       ))}
-    </div>
-  );
-};
+    </HashtagsWrapper>
+  </SideCol>
+);
 
 LeftSideBar.propTypes = {
   hashtags: PropTypes.array,

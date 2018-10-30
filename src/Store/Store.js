@@ -1,4 +1,4 @@
-import { observable, action, computed, toJS } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import io from 'socket.io-client';
 import uuid from 'uuid';
 import AutoObservable from './AutoObservable';
@@ -12,12 +12,19 @@ class Store {
 
   @observable frequency = null;
 
-  @observable _filterdHashtags = [];
+  @observable filterdHashtags = [];
 
-  @computed
-  get filterdHashtags() {
-    return toJS(this._filterdHashtags);
-  }
+  openStream = () => {
+    this.socket.on('tweet', (tweet) => {
+      this.saveValidTweets(tweet);
+    });
+  };
+
+  closeStream = () => {
+    this.socket.close();
+  };
+
+  autoObservable = new AutoObservable(this.openStream, this.closeStream);
 
   @computed
   get tweetText() {
@@ -31,27 +38,20 @@ class Store {
     return Math.round((this.frequency * this.tweetText.length) / 200);
   }
 
-  openStream = () => {
-    this.socket.on('tweet', (tweet) => {
-      const {
-        entities: { hashtags },
-      } = tweet;
+  @action
+  saveValidTweets(tweet) {
+    const {
+      entities: { hashtags },
+    } = tweet;
 
-      if (hashtags.filter(h => hashtagsList.includes(h.text.toLowerCase()))) {
-        this.autoObservable.data = tweet;
-        this.makeSound();
-        this._filterdHashtags.push(
-          ...hashtags.filter(h => hashtagsList.includes(h.text.toLowerCase())).map(h => ({ text: h.text, id: uuid() }))
-        );
-      }
-    });
-  };
+    const validHashtag = hashtags.find(h => hashtagsList.includes(h.text.toLowerCase()));
 
-  closeStream = () => {
-    this.socket.close();
-  };
-
-  autoObservable = new AutoObservable(this.openStream, this.closeStream);
+    if (!validHashtag) return null;
+    this.autoObservable.data = tweet;
+    this.makeSound();
+    this.filterdHashtags.push({ ...validHashtag, id: uuid() });
+    return validHashtag;
+  }
 
   @action
   makeSound() {
