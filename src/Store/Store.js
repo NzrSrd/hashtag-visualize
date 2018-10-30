@@ -1,6 +1,8 @@
 import { observable, action, computed } from 'mobx';
 import io from 'socket.io-client';
 import uuid from 'uuid';
+import rc from 'randomcolor';
+
 import AutoObservable from './AutoObservable';
 
 import frequencies from './services/notes';
@@ -35,7 +37,13 @@ class Store {
   @computed
   get freqBasedOnTweetLength() {
     if (!this.tweetText || !this.frequency) return null;
-    return Math.round((this.frequency * this.tweetText.length) / 200);
+    return Math.round((this.frequency * this.tweetText.length) / 100);
+  }
+
+  @computed
+  get lastHashtagColor() {
+    if (this.filterdHashtags.length === 0) return null;
+    return this.filterdHashtags[this.filterdHashtags.length - 1].color;
   }
 
   @action
@@ -49,7 +57,7 @@ class Store {
     if (!validHashtag) return null;
     this.autoObservable.data = tweet;
     this.makeSound();
-    this.filterdHashtags.push({ ...validHashtag, id: uuid() });
+    this.filterdHashtags.push({ ...validHashtag, id: uuid(), color: rc({ luminosity: 'light' }) });
     return validHashtag;
   }
 
